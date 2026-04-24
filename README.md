@@ -88,7 +88,7 @@ adb shell settings put global restricted_networking_mode 0
 
 A special thanks to the communities and developers who make these fixes possible:
 
-* **ME**: For the testing, patching, and providing these files.
+* **[`MedoX71T`](t.me/MedoX71T) - (ME)**: For the testing, patching, and providing these files.
 * **R0rt1z2**: For developing the essential [`mtk-bpf-patcher`](https://github.com/R0rt1z2/mtk-bpf-patcher) tool.
 * The wider **XDA and Project Treble communities** for continuous support and research.
 
