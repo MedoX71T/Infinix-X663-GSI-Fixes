@@ -1,9 +1,9 @@
 This repository provides a critical solution for the **Infinix Note 11 (X663)** device when running GSI (Generic System Image) builds, specifically addressing the issue of **WiFi - Mobile Data not working** on **Android 14 and higher**.
 <div width: fit-content; align="center">
-<img max-width="100%" height="60%" alt="Screenshot_20251102-023351_Settings" src="https://github.com/user-attachments/assets/fa5b286d-1790-4685-8036-e446324555ef"/>
-<img max-width="100%" height="60%" alt="Screenshot_20251102-023651_Google Play Store" src="https://github.com/user-attachments/assets/5fa98994-5d56-4e1d-8f07-433338196a1b"/>
-<img max-width="100%" height="60%" alt="Screenshot_20251102-035929_DerpLauncher" src="https://github.com/user-attachments/assets/190e484b-a664-4c59-8847-21a233a5a1af"/>
-<img max-width="100%" height="60%" alt="Screenshot_20251102-040013_Settings" src="https://github.com/user-attachments/assets/c5201e62-7547-4cde-94e7-99754a436f33"/>
+<img width="60%" height="60%" alt="Screenshot_20251102-023351_Settings" src="https://github.com/user-attachments/assets/fa5b286d-1790-4685-8036-e446324555ef"/>
+<img max-width="60%" height="60%" alt="Screenshot_20251102-023651_Google Play Store" src="https://github.com/user-attachments/assets/5fa98994-5d56-4e1d-8f07-433338196a1b"/>
+<img max-width="60%" height="60%" alt="Screenshot_20251102-035929_DerpLauncher" src="https://github.com/user-attachments/assets/190e484b-a664-4c59-8847-21a233a5a1af"/>
+<img max-width="60%" height="60%" alt="Screenshot_20251102-040013_Settings" src="https://github.com/user-attachments/assets/c5201e62-7547-4cde-94e7-99754a436f33"/>
 </div>
 <br>
 This fix involves applying the BPF Kernel Patcher to the stock boot image to ensure network connectivity on custom ROMs.
