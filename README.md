@@ -1,4 +1,4 @@
-# Infinix Note 11 (X663) GSI WiFi - Mobile Data - BPF Patch & Boot Warning Fix
+# <div align="center" > OmniPatch X663 <br> Fixing BPF Network & Bootloader Warnings </div>
 
 This repository provides a critical solution for the **Infinix Note 11 (X663)** device when running GSI (Generic System Image) builds, specifically addressing the issue of **WiFi - Mobile Data not working** on **Android 14 and higher**, as well as removing the unlocked bootloader warnings.
 
