@@ -1,0 +1,17 @@
+# Do not commit generated frontend work or browser data.
+.taste-skill/
+chrome-*/
+.browser-profile/
+node_modules/
+
+# Local Python and OS artifacts.
+.venv/
+__pycache__/
+*.py[cod]
+.DS_Store
+Thumbs.db
+
+# Local credentials are never repository content.
+.env
+.env.*
+*.pem

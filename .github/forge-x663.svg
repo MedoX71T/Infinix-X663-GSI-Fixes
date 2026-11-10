@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="360" viewBox="0 0 1280 360" role="img" aria-labelledby="title description">
+  <title id="title">Forge X663: Beyond the factory build.</title>
+  <desc id="description">Forge X663. Beyond the factory build. GSI installation and networking fixes for Infinix Note 11 (X663).</desc>
+  <rect width="1280" height="360" fill="#f3ede3"/>
+  <rect x="32" y="32" width="1216" height="296" fill="none" stroke="#d7c8b7" stroke-width="1"/>
+  <rect x="72" y="74" width="5" height="224" fill="#94684b"/>
+  <text x="105" y="105" fill="#765944" font-family="DejaVu Sans,Arial,sans-serif" font-size="18" font-weight="600" letter-spacing="3">INFINIX NOTE 11 / X663</text>
+  <text x="101" y="199" fill="#332a23" font-family="DejaVu Sans,Arial,sans-serif" font-size="88" font-weight="700" letter-spacing="-3">FORGE X663</text>
+  <text x="105" y="256" fill="#665345" font-family="DejaVu Sans,Arial,sans-serif" font-size="52" letter-spacing="-0.8">Beyond the factory build.</text>
+  <text x="105" y="294" fill="#765944" font-family="DejaVu Sans,Arial,sans-serif" font-size="19">GSI installation &amp; networking fixes</text>
+</svg>

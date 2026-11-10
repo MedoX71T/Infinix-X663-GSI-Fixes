@@ -1,33 +1,49 @@
-# Forge Ready — pre-patched images
+# Download images for Forge X663
 
-Maintainer-created files for Infinix Note 11 (X663). Networking and optional boot-warning removal are separate tasks.
+These are MedoX71T’s existing firmware-image files for Infinix Note 11 (X663). Choose an image only after checking your original stock build in the [installation guide](../docs/INSTALLATION.md).
 
-## Stock-firmware target
+## Match the listed stock build
 
-Existing maintainer-listed identifier, preserved literally:
+The supplied images are listed for this original stock build:
 
-`X663-H6915ABCDEFGHIO-S-GL-230113V402`
+`X663-H6915ABCEFGHIO-S-GL-230113V402`
 
-Match your original stock firmware before using pre-patched images. An installed GSI’s version is not the stock build. These files are not a universal firmware patch.
+Do not substitute a nearby firmware version or use the Android version shown by an installed Generic System Image (GSI). If the full stock build is unknown or different, use your own matching firmware and a patcher that supports it.
 
-## Files
+## Choose the file for your task
 
-| Image | Role | SHA-256 |
-| --- | --- | --- |
-| [patched_boot_bpf_fix.img](patched_boot_bpf_fix.img) | Boot-image networking patch | `2d85ca76cd1a1b2bdcb09641fa07e3d60ca324225c634bd6aa08344cd7c8ba86` |
-| [lk-patched.img](lk-patched.img) | Optional Little Kernel warning-removal patch | `a7f9aea6fdeaf0c60cb8522424b35c131fea7af7eb0a837f72c2035d1ad6be8e` |
-| [stock_boot.img](stock_boot.img) | Saved original boot reference | `3c2a70733284d75b9726bf1c7ea656cd185b4c16d03d9dc5f325fb03f8f80ffd` |
+| Image | Purpose | Size in bytes |
+| --- | --- | ---: |
+| [patched_boot_bpf_fix.img](patched_boot_bpf_fix.img?raw=true) | Boot-image patch for the reported GSI Wi-Fi/mobile-data problem | 33,554,432 |
+| [lk-patched.img](lk-patched.img?raw=true) | Optional Little Kernel (LK) boot-warning patch | 1,167,792 |
+| [stock_boot.img](stock_boot.img?raw=true) | Saved original boot image for the listed stock build | 33,554,432 |
 
-Hashes identify these saved files; they are not signatures or compatibility certificates. MedoX71T created the patches. No files are changed by the frontend.
+The stock boot image is not a full recovery kit. Matching stock LK, vbmeta, and other recovery images are not bundled.
 
-## Before flashing
+## Verify your download
 
-- Back up data. Bootloader unlocking erases it.
-- Keep untouched, matching stock images and know the recovery path.
-- Stock LK, vbmeta, and other recovery partitions are not bundled here.
-- LK warning removal is optional and is not the networking patch.
-- Record the firmware, GSI build, changed partitions, symptoms, and results.
+Use [SHA256SUMS](SHA256SUMS) to compare a downloaded image with the saved file. A matching hash checks file identity, not firmware compatibility or a trusted signature.
 
-For other firmware, use your own images and read [Forge Manual](../forge-manual/README.md). Follow device-specific instructions rather than assuming a generic flashing recipe.
+On Linux or macOS, run this from the folder containing the three images and `SHA256SUMS`:
 
-[Homepage file inspector](../index.html#ready) · [Releases](https://github.com/MedoX71T/Infinix-X663-GSI-Fixes/releases) · [Main documentation](../README.md)
+```sh
+sha256sum -c SHA256SUMS
+```
+
+If macOS does not provide `sha256sum`, use `shasum -a 256 -c SHA256SUMS`.
+
+In Windows PowerShell, compute the boot patch’s hash and compare it with the same filename in `SHA256SUMS`:
+
+```powershell
+Get-FileHash .\patched_boot_bpf_fix.img -Algorithm SHA256
+```
+
+Use the same command with each other filename to check those downloads.
+
+## Keep networking and warning removal separate
+
+Flash the boot patch only with a matching firmware and a supported installation procedure. LK warning removal is optional and does not repair networking, relock the bootloader, or restore verified boot.
+
+Back up your data and keep untouched matching recovery images before changing partitions. Bootloader unlocking and factory reset erase user data.
+
+[Boot-patch preparation](../docs/BOOT-PATCH.md) · [ADB setup](../docs/ADB-SETUP.md) · [Installation guide](../docs/INSTALLATION.md) · [Troubleshooting](../docs/TROUBLESHOOTING.md) · [Back to Forge X663](../README.md)

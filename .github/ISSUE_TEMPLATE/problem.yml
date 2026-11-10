@@ -1,0 +1,57 @@
+name: Installation or patch problem
+description: Report a GSI, networking, or optional LK patch problem on Infinix Note 11 (X663).
+title: "[Problem]: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Read the installation and troubleshooting guides before reporting.
+        Do not publish passwords, phone numbers, IMEI, serial numbers, or unredacted logs.
+  - type: input
+    id: device
+    attributes:
+      label: Device model
+      description: Copy the model from Settings, not the marketing name alone.
+      placeholder: Infinix Note 11 (X663)
+    validations:
+      required: true
+  - type: input
+    id: stock_build
+    attributes:
+      label: Original stock-firmware build
+      description: Include the complete build recorded before installing the GSI. If unknown, say unknown.
+    validations:
+      required: true
+  - type: input
+    id: gsi
+    attributes:
+      label: GSI release and download link
+      description: Include the project, Android version, exact filename, and release URL.
+    validations:
+      required: true
+  - type: textarea
+    id: changes
+    attributes:
+      label: Files and partitions changed
+      description: Include filenames, patcher version, commands, and whether you used bootloader fastboot or fastbootd. Redact device identifiers.
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: What happened
+      description: Describe expected behavior, actual behavior, and steps to reproduce it. Include the first complete error message.
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Redacted logs or screenshots
+      description: Remove account details, device IDs, WiFi names, and other private data before attaching anything.
+  - type: textarea
+    id: recovery
+    attributes:
+      label: Recovery status
+      description: Can you boot Android, enter bootloader fastboot, enter fastbootd, or restore matching stock firmware?
+    validations:
+      required: true

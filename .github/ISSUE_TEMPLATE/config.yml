@@ -1,0 +1,14 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Installation guide
+    url: https://github.com/MedoX71T/Infinix-X663-GSI-Fixes/blob/main/docs/INSTALLATION.md
+    about: Follow the beginner workflow and firmware checks before changing partitions.
+  - name: ADB and fastboot setup
+    url: https://github.com/MedoX71T/Infinix-X663-GSI-Fixes/blob/main/docs/ADB-SETUP.md
+    about: Install the computer tools, check Windows drivers, and authorize the phone.
+  - name: BPF boot-patch guide
+    url: https://github.com/MedoX71T/Infinix-X663-GSI-Fixes/blob/main/docs/BOOT-PATCH.md
+    about: Choose a matching pre-patched boot image or prepare your own supported image.
+  - name: Troubleshooting guide
+    url: https://github.com/MedoX71T/Infinix-X663-GSI-Fixes/blob/main/docs/TROUBLESHOOTING.md
+    about: Diagnose connection, boot, networking, and optional LK patch problems.
