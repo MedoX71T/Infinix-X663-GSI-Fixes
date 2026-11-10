@@ -1,14 +1,19 @@
+<div align=center>
+  
 # Forge X663
+  
+> ### What the phone manufacturer didn't want
 
 [![Device: X663](.github/badges/device.svg)](#match-your-stock-firmware-before-downloading) [![GSI installation guide](.github/badges/gsi.svg)](docs/INSTALLATION.md) [![BPFv2 release](.github/badges/release.svg)](https://github.com/MedoX71T/Infinix-X663-GSI-Fixes/releases/tag/BPFv2) [![MIT repository license](.github/badges/license.svg)](LICENSE) [![GitHub visitors, October 27 to November 9, 2026: recorded snapshot](.github/badges/visitors.svg)](.github/traffic-snapshot.json)
 
 ![Forge X663: GSI installation and network fixes for Infinix Note 11](.github/forge-x663.svg)
-
-> Beyond the factory build.
+</div>
 
 Install an alternative Android system, called a **Generic System Image (GSI)**, on your **Infinix Note 11 (X663)**. Prepare the matching boot patch to address Wi-Fi and mobile-data problems.
 
 A GSI replaces Android’s system image. Stock firmware is the manufacturer’s original software package; match its full build number before choosing a patch file.
+
+**[Read the 22-step installation guide](docs/INSTALLATION.md)** · [Download and verify the images](forge-ready/README.md) · [Troubleshoot a problem](docs/TROUBLESHOOTING.md)
 
 ## X663 GSI screenshots
 
@@ -19,7 +24,7 @@ See the Android 15 and Android 16 setup examples below. Open the [original devic
   <img src="https://raw.githubusercontent.com/MedoX71T/Infinix-X663-GSI-Fixes/main/.github/x663-proof-desktop.png" alt="Four original X663 screenshots showing Android 15 and Android 16 examples">
 </picture>
 
-**[Read the 22-step installation guide](docs/INSTALLATION.md)** · [Download and verify the images](forge-ready/README.md) · [Troubleshoot a problem](docs/TROUBLESHOOTING.md)
+
 
 > [!WARNING]
 > Unlocking the bootloader and factory reset erase your data. Match your full original stock-firmware build before using a pre-patched image. Keep matching stock recovery files; the included stock boot image is not a complete recovery kit.
