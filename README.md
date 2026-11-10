@@ -4,7 +4,7 @@
   
 > ### What the phone manufacturer didn't want
 
-[![Device: X663](.github/badges/device.svg)](#match-your-stock-firmware-before-downloading) [![GSI installation guide](.github/badges/gsi.svg)](docs/INSTALLATION.md) [![BPFv2 release](.github/badges/release.svg)](https://github.com/MedoX71T/Infinix-X663-GSI-Fixes/releases/tag/BPFv2) [![MIT repository license](.github/badges/license.svg)](LICENSE) [![GitHub visitors, October 27 to November 9, 2026: recorded snapshot](.github/badges/visitors.svg)](.github/traffic-snapshot.json)
+[![Device: X663](.github/badges/device.svg)](#match-your-stock-firmware-before-downloading) [![GSI installation guide](.github/badges/gsi.svg)](docs/INSTALLATION.md) [![BPFv2 release](.github/badges/release.svg)](https://github.com/MedoX71T/Infinix-X663-GSI-Fixes/releases/tag/BPFv2) [![MIT repository license](.github/badges/license.svg)](LICENSE)
 
 ![Forge X663: GSI installation and network fixes for Infinix Note 11](.github/forge-x663.svg)
 </div>
