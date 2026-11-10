@@ -112,7 +112,7 @@ Run one command at a time and wait for it to finish. Stop on `FAILED` or an unex
 
 ### 9. Unlock the bootloader
 
-Skip unlocking if the bootloader is already unlocked. Otherwise, reboot the authorized Android connection into bootloader mode:
+From running Android, reboot the authorized ADB connection into bootloader mode **even if the bootloader is already unlocked**:
 
 ```sh
 adb reboot bootloader
@@ -124,7 +124,7 @@ Check the fastboot connection first:
 fastboot devices
 ```
 
-Confirm the intended phone is listed. Only then send the unlock command:
+Confirm the intended phone is listed. If you already unlocked this phone, skip only the unlock command and its confirmation below; stay in bootloader mode and continue with step 10. Otherwise, send the unlock command:
 
 ```sh
 fastboot flashing unlock
@@ -300,7 +300,13 @@ The explicit `orange_state` category limits this task to the unlock warning. Do 
 
 ### 21. Flash the chosen LK in bootloader mode
 
-Copy the selected full LK image into `platform-tools`. Boot the running phone into the bootloader using `adb reboot bootloader`. If it is in fastbootd, use `fastboot reboot bootloader` instead.
+Copy the selected full LK image into `platform-tools`. Switch back to the terminal in that folder from step 8. If you closed it, use the [platform-tools terminal instructions for your operating system](ADB-SETUP.md) to open it again. Do not run these commands from the lkpatcher folder opened in step 19.
+
+Choose the next action by the phone’s current mode:
+
+- **Android is running:** the factory reset in step 16 clears USB-debugging settings and computer authorization. Re-enable [Developer options and USB debugging](ADB-SETUP.md#enable-usb-debugging-on-the-phone), then [authorize your computer again](ADB-SETUP.md#authorize-the-computer-and-check-the-connection). Run `adb devices` and meet the [ADB ready checkpoint](ADB-SETUP.md#ready-checkpoint): the intended phone must show `device`. Only then run `adb reboot bootloader`.
+- **The phone is in fastbootd:** run `fastboot reboot bootloader` instead; ADB is not the connection to use in this mode.
+- **The phone is already in bootloader fastboot:** skip the reboot command, but still check the connection and mode below.
 
 Check `fastboot devices` and `fastboot getvar is-userspace`. Confirm bootloader mode, not fastbootd, before changing LK.
 
