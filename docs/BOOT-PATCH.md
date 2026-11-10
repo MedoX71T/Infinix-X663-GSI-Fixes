@@ -1,6 +1,6 @@
 # Prepare the BPF networking boot patch
 
-Choose a matching pre-patched boot image or prepare one from your own stock firmware. This guide explains the files and the Android APK workflow before you reach a flashing command.
+Choose a matching pre-patched boot image or patch your own stock `boot.img` automatically on your phone. The Android application package (APK) handles the patching step; this guide then returns you to computer-based flashing.
 
 **Berkeley Packet Filter (BPF)** is part of Android’s networking stack. The upstream MediaTek BPF patcher addresses a kernel bug associated with networking failures. The kernel is core system code stored inside the phone’s boot image. Patching a file does not install it; flashing writes the completed image to the phone.
 
@@ -31,11 +31,11 @@ You do not need to run the BPF patcher APK on an already patched image. Continue
 
 ## Path B: prepare your own matching boot image
 
-Choose this path only when you have identified and obtained your own exact stock firmware, and the selected patcher supports its boot-image format.
+Use `mtk-bpf-patcher-release.apk` to patch a working copy of your matching stock `boot.img` on Android. The app patches the file automatically after you choose it with **Select File**. You don’t need Python or a computer script for this patching step.
 
 ### 1. Extract and keep the stock original
 
-Download matching stock firmware from the source you checked in [installation step 3](INSTALLATION.md#3-download-and-extract-matching-stock-firmware). The maintainer’s suggested directory is [FirmwareFile’s Infinix Note 11 X663 page](https://firmwarefile.com/infinix-note-11-x663/), a third-party source.
+Download matching stock firmware from the source you checked in [installation step 3](INSTALLATION.md#3-download-and-extract-matching-stock-firmware). Use [FirmwareFile’s Infinix Note 11 X663 page](https://firmwarefile.com/infinix-note-11-x663/) to find your matching package. Check the build and source; it is not Infinix’s official support service.
 
 Extract the package on the computer and locate `boot.img`. Save an untouched copy in a recovery folder. Work from a second copy, not your only stock original.
 
@@ -53,28 +53,26 @@ Copy the actual `boot.img`, not the stock-firmware ZIP. The APK needs an input i
 
 ### 3. Obtain the Android patcher APK
 
-The maintainer’s original Android application package (APK) source is [the BPF patcher attachment on XDA](https://xdaforums.com/attachments/mtk-bpf-patcher-release-apk.6238876/).
+Download [mtk-bpf-patcher-release.apk](../forge-ready/mtk-bpf-patcher-release.apk?raw=true) from this repository to your phone. The [download guide](../forge-ready/README.md#verify-your-download) explains how to compare its SHA-256 with [SHA256SUMS](../forge-ready/SHA256SUMS).
 
-Check the attachment’s author, instructions, and requested permissions before installing it. If Android asks for permission to install an unknown app, allow it only for the verified download source, then disable that installation permission afterward.
+Check the download source and requested permissions before installing the app. If Android asks for permission to install an unknown app, allow it only for the download you chose. Disable that installation permission afterward.
 
-If XDA shows a browser security check or blocks the attachment, open the original link in a normal browser. If it still will not download, contact MedoX71T rather than choosing an unknown APK mirror.
+Use the [XDA attachment](https://xdaforums.com/attachments/mtk-bpf-patcher-release-apk.6238876/) as an additional download reference. Check the source before installing an APK with a similar filename.
 
-This attachment is not a published release in R0rt1z2’s Python repository. This documentation update did not inspect or certify the APK. Do not treat an unfamiliar APK with a similar filename as the same tool.
+### 4. Select boot.img for automatic patching
 
-### 4. Select the matching input and run the patch
+Patch the working copy on your phone:
 
-Follow the maintainer’s recorded APK workflow:
-
-1. Open the patcher app.
-2. Choose **Select input file**.
-3. Open the folder where you copied `boot.img` and select that file.
-4. Follow the app’s patch action and wait for its result; button labels and output locations depend on the APK version.
-5. Record the output filename and where the app saved it.
+1. Open the installed patcher app.
+2. Tap **Select File**.
+3. Open the folder where you copied your matching stock `boot.img` and select that file.
+4. The app starts patching automatically after selection. Wait for it to finish and check the result.
+5. Record the completed output’s filename and the folder where the app saved it.
 
 Do not select a GSI `system.img`, `lk.img`, `vbmeta.img`, or an already patched boot image as the stock boot input.
 
 > [!IMPORTANT]
-> Use this APK path only if its version supports full boot-image input and repacking. A raw patched kernel is not a flashable boot image. The [upstream Python BPF patcher](https://github.com/R0rt1z2/mtk-bpf-patcher) patches an extracted kernel; its command alone does not repack `boot.img`. Stop if the app rejects the input or does not establish the output format.
+> This APK workflow uses the complete stock `boot.img`. Stop if the app reports an error or does not produce a completed patched boot image. The separate [upstream Python BPF patcher](https://github.com/R0rt1z2/mtk-bpf-patcher) patches an extracted kernel and does not repack it into `boot.img`; you don’t need that CLI for the phone workflow. Never flash a raw kernel as a boot image.
 
 ### 5. Copy the completed output back to the computer
 
@@ -101,9 +99,9 @@ Before sending a command, complete these checks:
 - Finish [ADB setup](ADB-SETUP.md) and authorize your computer
 - Confirm the bootloader is already unlocked; unlocking it now would erase data
 
-### Optional: check the maintainer’s earlier ADB workaround
+### Optional: check restricted networking mode
 
-The previous README suggested clearing restricted networking mode before trying the boot patch. This is an Android setting workaround, not a repair to the MediaTek kernel bug.
+Check whether Android’s restricted networking mode is blocking the connection before flashing a boot image. Changing this setting does not repair the kernel bug.
 
 Read the setting while Android is running:
 
@@ -111,7 +109,7 @@ Read the setting while Android is running:
 adb shell settings get global restricted_networking_mode
 ```
 
-If it reports `1` and you did not enable that restriction as a security policy, the maintainer’s earlier command disables it:
+If it reports `1` and you did not enable that restriction as a security policy, disable it with:
 
 ```bat
 adb shell settings put global restricted_networking_mode 0

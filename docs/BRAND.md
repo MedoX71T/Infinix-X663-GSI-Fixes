@@ -1,6 +1,6 @@
 # Forge X663 brand and documentation conventions
 
-Use one identity and one connected learning path across the repository. The README is the project’s branded front door, not a website.
+Use this internal reference when editing the project’s identity and documentation. Keep installation instructions in the reader-facing guides.
 
 ## Identity
 
@@ -15,11 +15,11 @@ The tagline expresses installing and maintaining Android beyond the stock build.
 
 ## Creative direction
 
-The working insight is that X663 owners want another Android build without losing a usable phone, but unfamiliar files and missing steps leave them unsure what to change. This is derived from the maintainer’s brief, not interview research.
+Help X663 owners understand each file and finish the installation with a usable phone. Put the next action and its prerequisites where the reader needs them.
 
 Use an owner’s patch kit as the central idea: name each file, explain its purpose, and give the reader an ordered next action. Put firmware matching before downloads and recovery preparation before risky commands.
 
-Rejected directions are developer dashboards, workshop-themed navigation, universal-fix claims, and decorative award scores. They obscure the beginner’s task or imply unsupported evidence. No numerical creative score establishes device compatibility.
+Keep navigation focused on installation tasks. Make compatibility limits and recovery checks visible before a risky command.
 
 ## Visual language
 
@@ -38,7 +38,7 @@ Keep the banner static, with no scripts, animation, downloaded fonts, or externa
 
 ## Voice and reader journey
 
-Explain a concept before using it in a command. Use plain English, direct verbs, short paragraphs, and descriptive headings.
+Address the reader directly: use “you” and action verbs such as “download,” “select,” “copy,” and “check.” Explain a concept before using it in a command. Keep paragraphs short and headings descriptive. Do not describe the project’s author in the third person or leave editing-history notes in installation instructions.
 
 The reading order is:
 
@@ -51,7 +51,7 @@ The reading order is:
 
 Each tutorial states its goal, required inputs, expected checkpoint, and return/continue links. Keep the full 22-step installation guide as the main route; the ADB and boot-patch guides explain prerequisites in more detail rather than creating competing installation recipes.
 
-Use **Wi-Fi** and **mobile data** in reader-facing prose. Preserve filenames, stock-build identifiers, commands, upstream repository slugs, and quoted error text literally. Attribute reported results to MedoX71T and do not invent certifications or broader firmware support.
+Use **Wi-Fi** and **mobile data** in reader-facing prose. Preserve filenames, stock-build identifiers, commands, upstream repository slugs, and quoted error text literally. Describe only results you can support. Do not invent certifications, visitor counts, or broader firmware support.
 
 ## Discovery without a website
 
@@ -70,6 +70,6 @@ Do not add a keyword-stuffed footer, duplicate AI-only guide, HTML meta tags in 
 
 ## Method attribution
 
-Creative-direction framework: Serge Shima, [creative-director-skill](https://github.com/smixs/creative-director-skill), CC BY 4.0. The approved repository identity adapts the framework’s insight-first approach, SIT, bisociation, and inversion methods to a documentation-first project.
+Creative-direction reference: Serge Shima, [creative-director-skill](https://github.com/smixs/creative-director-skill), CC BY 4.0.
 
 [Return to Forge X663](../README.md)

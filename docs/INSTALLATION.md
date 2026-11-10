@@ -1,6 +1,6 @@
 # Install a GSI on Infinix Note 11 (X663)
 
-Follow MedoX71T’s workflow to prepare matching stock firmware, install a Generic System Image (GSI), and apply the networking boot patch. Steps 17–22 cover optional boot-warning removal. Start from step 1 for a new installation; use the separate [existing-GSI boot-patch path](BOOT-PATCH.md#apply-the-patch-to-an-existing-gsi) if Android already boots and networking is your only task.
+Prepare your matching stock firmware, install a Generic System Image (GSI), and apply the networking boot patch. Steps 17–22 cover optional boot-warning removal. Start from step 1 for a new installation; use the separate [existing-GSI boot-patch path](BOOT-PATCH.md#apply-the-patch-to-an-existing-gsi) if Android already boots and networking is your only task.
 
 ## Understand the changes before starting
 
@@ -14,7 +14,7 @@ Need more detail before a command? Read [ADB setup](ADB-SETUP.md) and [boot-patc
 
 The two patches have separate purposes:
 
-- **Boot patch**: addresses the reported MediaTek kernel networking problem affecting Wi-Fi and mobile data
+- **Boot patch**: addresses the MediaTek kernel networking problem affecting Wi-Fi and mobile data
 - **Little Kernel (LK) patch**: removes the unlocked-bootloader warning; it is optional and does not repair networking
 
 Bootloader fastboot and userspace fastboot (fastbootd) use the same computer command, `fastboot`, but they are different phone modes. This guide flashes boot and LK in bootloader mode, and the logical system partition in fastbootd.
@@ -30,7 +30,7 @@ Complete these steps before unlocking or erasing a partition. Keep your stock or
 
 Open **Settings → My Phone** or **About phone**. Record the model and the complete **Build number** or **Software information** string.
 
-Confirm the phone is **Infinix Note 11 (X663)**. The supplied images are listed for this original stock build:
+Confirm the phone is **Infinix Note 11 (X663)**. Match your full original stock build with this value before using the supplied images:
 
 `X663-H6915ABCEFGHIO-S-GL-230113V402`
 
@@ -44,7 +44,7 @@ Keep the complete matching stock package and its untouched images. The repositor
 
 ### 3. Download and extract matching stock firmware
 
-Download the stock package that matches the full build recorded in step 1. The maintainer’s suggested download directory is [FirmwareFile: Infinix Note 11 X663 firmware](https://firmwarefile.com/infinix-note-11-x663/).
+Download the stock package that matches the full build recorded in step 1. Find the matching package on [FirmwareFile: Infinix Note 11 X663 firmware](https://firmwarefile.com/infinix-note-11-x663/).
 
 FirmwareFile is a third-party source, not Infinix’s official support service. Check the selected package’s device, build, and provenance before using it. Extract the archive with [7-Zip](https://www.7-zip.org/) or WinRAR on your computer.
 
@@ -63,13 +63,18 @@ Do not change the original stock files. The optional LK patch has its own matchi
 
 ### 5. Patch your own boot image if needed
 
-Skip this step if you chose the matching pre-patched image. If BPF patching is new to you, follow the [boot-patch guide’s APK steps](BOOT-PATCH.md#path-b-prepare-your-own-matching-boot-image) for file transfer, input selection, output checks, and copying the result back.
+Skip this step if you chose the matching pre-patched image. Otherwise, use the Android application package (APK) to patch your own stock `boot.img` on the phone. You don’t need Python or a terminal script for this patching step.
 
-Copy your own matching `boot.img` to the phone. The maintainer’s Android application package (APK) link is [BPF patcher attachment on XDA](https://xdaforums.com/attachments/mtk-bpf-patcher-release-apk.6238876/). This attachment is not a release published in the upstream Python repository.
+Follow this workflow:
 
-Check the attachment’s author and instructions before installing it. In the APK’s **Select input file** flow, choose your saved `boot.img` and retain the reported output filename. Transfer the completed output back to your computer before unlocking the bootloader.
+1. Copy a working copy of your matching stock `boot.img` to a folder on the phone.
+2. Download and install [mtk-bpf-patcher-release.apk](../forge-ready/mtk-bpf-patcher-release.apk?raw=true).
+3. Open the app, tap **Select File**, and choose that `boot.img`. The app patches it automatically.
+4. Wait for success, record the output filename, and copy the completed boot image into your computer’s `platform-tools` folder.
 
-Use this path only when that APK version supports full boot-image input and repacking. A raw patched kernel is **not** a flashable boot image. The [upstream MediaTek BPF Python patcher](https://github.com/R0rt1z2/mtk-bpf-patcher) operates on an extracted kernel; its command alone does not repack `boot.img`. Stop if the input, output format, or patch result is unclear.
+Transfer the output before unlocking the bootloader, which erases phone storage. Keep the original stock image untouched. The [phone-patching guide](BOOT-PATCH.md#path-b-prepare-your-own-matching-boot-image) explains the file transfer, installation permissions, checksum, and result checks.
+
+Stop if the app reports an error or does not produce a completed boot image. Use its actual output filename when flashing; do not substitute a raw kernel or a GSI `system.img`.
 
 ### 6. Prepare platform-tools and the GSI
 
@@ -165,7 +170,7 @@ For an APK-generated full boot image, replace the quoted filename with its actua
 
 ### 12. Flash matching vbmeta with the required verification flags
 
-Android Verified Boot (AVB) checks the integrity of Android images. The maintainer’s custom-GSI workflow uses the following command to disable those checks while flashing matching stock `vbmeta.img`:
+Android Verified Boot (AVB) checks the integrity of Android images. Flash your matching stock `vbmeta.img` with the verification flags required for this custom-GSI installation:
 
 ```sh
 fastboot --disable-verity --disable-verification flash vbmeta vbmeta.img
@@ -199,7 +204,7 @@ Continue only when the phone indicates fastbootd and `is-userspace` reports `yes
 
 ### 15. Erase and flash the extracted GSI system image
 
-Confirm the full GSI `.img` is available before erasing the installed system. The maintainer’s workflow erases `system` before flashing the replacement, as in [Android’s general GSI flashing guide](https://source.android.com/docs/core/tests/vts/gsi#requirements-for-flashing-gsis):
+Confirm the full GSI `.img` is available before erasing the installed system. Erase `system` before flashing the replacement, following [Android’s general GSI flashing guide](https://source.android.com/docs/core/tests/vts/gsi#requirements-for-flashing-gsis):
 
 ```sh
 fastboot erase system
@@ -276,27 +281,23 @@ python3 -m venv .venv
 With that environment active, install the local repository and display its supported options:
 
 ```sh
-python -m pip install .
-python -m lkpatcher --help
+python3 -m pip install .
+python3 -m lkpatcher --help
 ```
+
+Check that `python3` resolves to the Python environment you installed the tool in. If your terminal cannot find `python3`, finish your Python command setup before continuing.
 
 This installs the package and its declared dependencies. Downloading the ZIP alone does not install the module. Stop on an installation error; do not patch an image with an incomplete installation.
 
-### 20. Apply only the boot-warning patch category
+### 20. Patch your matching stock LK
 
-Keep the environment active. First review the warning-only dry run:
-
-```sh
-python -m lkpatcher lk.img --category orange_state --dry-run
-```
-
-If the tool recognizes the image, reports the intended patch, and its device-specific prerequisites are satisfied, create a separate output with a backup:
+Keep the Python environment active and your untouched stock backup separate. Run the command from the lkpatcher folder containing your working `lk.img`:
 
 ```sh
-python -m lkpatcher lk.img --category orange_state --backup -o patched.lk.img
+python3 -m lkpatcher lk.img -o patched.img
 ```
 
-The explicit `orange_state` category limits this task to the unlock warning. Do not use unrestricted default patching, `--patch-policies`, or certificate/security bypass options as a warning-removal shortcut. Stop on unsupported input, a missing patch, or an unexpected verification result.
+Wait for the tool to finish and save `patched.img`. Review the patch results before flashing. This command uses the tool’s default patch selection, which can include changes beyond the unlock warning. Stop on unsupported input, a missing patch, or an unexpected verification result.
 
 ### 21. Flash the chosen LK in bootloader mode
 
@@ -316,11 +317,13 @@ For the matching supplied file, run:
 fastboot flash lk "lk-patched.img"
 ```
 
-For the warning-only image created in step 20, use its actual output filename:
+For the LK image created in step 20, flash its `patched.img` output:
 
 ```sh
-fastboot flash lk "patched.lk.img"
+fastboot flash lk "patched.img"
 ```
+
+Use the file created from `lk.img`, not the APK’s boot-patch output.
 
 Use **one** of these commands, not both. If the stock layout does not expose `lk`, stop; do not invent `lk_a`, `lk_b`, or another partition name. Wait for the write to succeed.
 
@@ -335,17 +338,5 @@ fastboot reboot
 Confirm the phone starts and check whether the warning changed. Re-test Wi-Fi and mobile data. Warning removal does not relock the bootloader or restore AVB security.
 
 Keep the full stock build, chosen GSI release, patched filenames, checksums, and test results with your recovery backup. Report failures through [GitHub Issues](https://github.com/MedoX71T/Infinix-X663-GSI-Fixes/issues/new?template=problem.yml); redact personal information first.
-
-## Corrections to the earlier pasted commands
-
-The original workflow is retained, with these command and file-handling corrections:
-
-- `adb fastboot reboot` is not an ADB command; use `adb reboot bootloader` from Android or `fastboot reboot bootloader` from fastbootd
-- `fastboot --disable-verification flash vbmeta.img` lacks the partition argument; the corrected command names both `vbmeta` and `vbmeta.img`
-- `patched_boot_bpt.img` in the original draft is not a supplied repository file; use the actual complete boot-image output or `patched_boot_bpf_fix.img`
-- The boot patch must be flashed; preparing it on the phone alone does not install it
-- `vbmeta_system` is conditional, not a file or partition to invent
-- System flashing uses fastbootd in this workflow; LK flashing uses bootloader fastboot
-- The LK command selects `orange_state` explicitly instead of enabling unrelated default patch categories
 
 [Download and verify the supplied images](../forge-ready/README.md) · [Troubleshoot a failed step](TROUBLESHOOTING.md) · [Return to the project overview](../README.md)

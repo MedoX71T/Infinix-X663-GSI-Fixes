@@ -1,12 +1,23 @@
-![Forge X663: GSI installation and network fixes for Infinix Note 11](.github/forge-x663.svg)
-
 # Forge X663
+
+[![Device: X663](.github/badges/device.svg)](#match-your-stock-firmware-before-downloading) [![GSI installation guide](.github/badges/gsi.svg)](docs/INSTALLATION.md) [![BPFv2 release](.github/badges/release.svg)](https://github.com/MedoX71T/Infinix-X663-GSI-Fixes/releases/tag/BPFv2) [![MIT repository license](.github/badges/license.svg)](LICENSE) [![GitHub visitors, October 27 to November 9, 2026: recorded snapshot](.github/badges/visitors.svg)](.github/traffic-snapshot.json)
+
+![Forge X663: GSI installation and network fixes for Infinix Note 11](.github/forge-x663.svg)
 
 > Beyond the factory build.
 
-A step-by-step guide to installing an alternative Android system, called a **Generic System Image (GSI)**, on **Infinix Note 11 (X663)** and addressing Wi-Fi/mobile-data problems.
+Install an alternative Android system, called a **Generic System Image (GSI)**, on your **Infinix Note 11 (X663)**. Prepare the matching boot patch to address Wi-Fi and mobile-data problems.
 
-A GSI replaces Android’s system image; it is not an app or a normal system update. Stock firmware is the manufacturer’s original software package, and its full build number identifies the images your phone needs. Forge X663 connects MedoX71T’s patch files with beginner instructions and recovery checks.
+A GSI replaces Android’s system image. Stock firmware is the manufacturer’s original software package; match its full build number before choosing a patch file.
+
+## X663 GSI screenshots
+
+See the Android 15 and Android 16 setup examples below. Open the [original device screenshots](src/) for a closer look, and test networking on your own firmware and GSI combination.
+
+<picture>
+  <source media="(max-width: 767px)" srcset="https://raw.githubusercontent.com/MedoX71T/Infinix-X663-GSI-Fixes/main/.github/x663-proof-mobile.png">
+  <img src="https://raw.githubusercontent.com/MedoX71T/Infinix-X663-GSI-Fixes/main/.github/x663-proof-desktop.png" alt="Four original X663 screenshots showing Android 15 and Android 16 examples">
+</picture>
 
 **[Read the 22-step installation guide](docs/INSTALLATION.md)** · [Download and verify the images](forge-ready/README.md) · [Troubleshoot a problem](docs/TROUBLESHOOTING.md)
 
@@ -28,7 +39,7 @@ Follow the full installation guide in order. Android Debug Bridge (ADB) is the c
 
 ## Match your stock firmware before downloading
 
-The supplied images are listed for this original stock build:
+Match your full original stock build with this value before using the supplied images:
 
 `X663-H6915ABCEFGHIO-S-GL-230113V402`
 
@@ -38,7 +49,7 @@ Stock firmware is the manufacturer’s original Android software package. Find i
 - **Different or unknown build**: do not flash these pre-patched images; identify the stock firmware and use your own supported images
 - **GSI already installed**: its Android build number does not identify the original stock firmware
 
-The maintainer’s suggested firmware directory is [FirmwareFile’s Infinix Note 11 X663 page](https://firmwarefile.com/infinix-note-11-x663/). It is a third-party source; check the selected package’s build and provenance.
+Find your matching stock package on [FirmwareFile’s Infinix Note 11 X663 page](https://firmwarefile.com/infinix-note-11-x663/). Check its build and source before using it; FirmwareFile is not Infinix’s official support service.
 
 ## Understand the two patches
 
@@ -46,7 +57,7 @@ An image is a software file for one storage area of the phone, not a photograph.
 
 | Task | Image | What it changes |
 | --- | --- | --- |
-| Reported Wi-Fi/mobile-data problem on a GSI | `patched_boot_bpf_fix.img` | A boot-image patch for a MediaTek kernel networking regression |
+| Address Wi-Fi/mobile-data problems on a GSI | `patched_boot_bpf_fix.img` | A boot-image patch for a MediaTek kernel networking regression |
 | Unlocked-bootloader warning | `lk-patched.img` | An optional Little Kernel (LK) bootloader patch |
 | Keep an original boot reference | `stock_boot.img` | The saved unpatched boot image for the listed stock build |
 
@@ -68,7 +79,7 @@ Read the [download verification instructions](forge-ready/README.md#verify-your-
 
 ## Selected GSI projects
 
-These are MedoX71T’s three selected Doze-off projects:
+Choose a GSI from these Doze-off projects:
 
 - [DerpFest Treble](https://github.com/Doze-off/Derpfest_treble)
 - [Project Infinity-X](https://github.com/Doze-off/ProjectInfinity-X_gsi)
@@ -81,6 +92,12 @@ Read the chosen project’s release notes and device guidance before downloading
 ### Do I need to create the BPF patch myself?
 
 Not if your full original stock build matches the supplied image’s target. Use the matching pre-patched file and [verify its checksum](forge-ready/README.md#verify-your-download). For another identified build, follow the supported own-image path in [boot-patch preparation](docs/BOOT-PATCH.md).
+
+### Can I patch boot.img directly on my phone?
+
+Yes. Install the Android application package (APK), [mtk-bpf-patcher-release.apk](forge-ready/mtk-bpf-patcher-release.apk?raw=true), on your phone. Tap **Select File** and choose your matching stock `boot.img`; the app patches it automatically. You don’t need Python or a terminal script for this patching step.
+
+Follow the [phone-patching instructions](docs/BOOT-PATCH.md#path-b-prepare-your-own-matching-boot-image) to prepare the input and save the output. Copy the completed boot image to your computer before unlocking, then follow the [boot-flashing step](docs/INSTALLATION.md#11-flash-the-full-networking-boot-patch).
 
 ### Do I install ADB on the phone?
 
@@ -96,25 +113,25 @@ No. LK warning removal is optional and does not repair networking. Keep it separ
 
 ## Results and limits
 
-MedoX71T created the supplied patches and previously reported GSI networking results through Android 16. The [five original device screenshots](src/) remain available, including Android 15, Android 16, and LK examples. They are maintainer examples, not a complete firmware/GSI compatibility matrix.
+Use the [Android 15, Android 16, and LK screenshots](src/) as setup examples. Check your exact firmware and GSI combination; the screenshots do not establish compatibility with every build.
 
 A working network patch does not guarantee every GSI feature, including carrier calling, hotspot, camera, or encryption. Support depends on the exact stock firmware and GSI release. Do not infer support for another phone or stock build.
 
-## Report a problem or contact the maintainer
+## Get help or report a problem
 
 Open an [installation or patch problem report](https://github.com/MedoX71T/Infinix-X663-GSI-Fixes/issues/new?template=problem.yml). Include the full original stock build, exact GSI release, files and partitions changed, current phone mode, and the first error message.
 
 Remove passwords, account details, IMEI, device serials, Wi-Fi names, and private information from logs or screenshots before posting.
 
-Existing contacts are:
+Get in touch through:
 
-- [MedoX71T on Telegram](https://t.me/MedoX71T)
+- [Contact me on Telegram](https://t.me/MedoX71T)
 - [Doze-off GSI group](https://t.me/dozeoff_treble), the upstream group rather than a dedicated Forge forum
 
 ## Credits and license
 
-MedoX71T created the supplied patches, tested the original setup, and wrote the installation workflow. [R0rt1z2](https://github.com/R0rt1z2) maintains [mtk-bpf-patcher](https://github.com/R0rt1z2/mtk-bpf-patcher) and [lkpatcher](https://github.com/R0rt1z2/lkpatcher). Doze-off maintains the selected GSI projects.
+Thanks to [R0rt1z2](https://github.com/R0rt1z2) for [mtk-bpf-patcher](https://github.com/R0rt1z2/mtk-bpf-patcher) and [lkpatcher](https://github.com/R0rt1z2/lkpatcher), and to Doze-off for the GSI projects linked above.
 
-The repository retains its [MIT license](LICENSE). Linked tools and original firmware components retain their own licenses and rights. Software is provided as is, without warranty.
+The repository retains its [MIT license](LICENSE). The APK, linked tools, and original firmware components retain their own licenses and rights. Software is provided as is, without warranty.
 
-[Forge X663 brand direction](docs/BRAND.md)
+Made with love for the X663 community.
