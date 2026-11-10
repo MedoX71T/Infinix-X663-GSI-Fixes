@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Forge X663 browser regression tests</title>
+<style>body{margin:0;font:18px/1.5 monospace;background:#fff;color:#111}header{padding:24px}h1{font-size:24px}pre{white-space:pre-wrap}iframe{display:block;border:0;width:1440px;height:900px}</style>
+</head><body><header><h1>Forge X663 real-browser tests</h1><pre id="results">RUNNING</pre></header><iframe id="site" title="Actual Forge X663 page under test" src="../index.html"></iframe>
+<script>
+document.documentElement.dataset.ready='0';
+const frame=document.getElementById('site');
+const results=[];
+const assert=(value,message)=>{if(!value)throw new Error(message)};
+const wait=ms=>new Promise(resolve=>setTimeout(resolve,ms));
+frame.addEventListener('load',async()=>{
+  await wait(1500);
+  const doc=frame.contentDocument;
+  try {
+    assert(frame.contentWindow.getComputedStyle(doc.querySelector('h1')).fontFamily.includes('Hanken Grotesk'),'The new hero must use the modern sans-serif pairing, not the old serif styling');
+    results.push({test:'Modern product typography is actually rendered',pass:true});
+  } catch(error) {results.push({test:'Modern product typography is actually rendered',pass:false,error:error.message});}
+  const guide=doc.getElementById('manual');
+  const guideBox=guide.getBoundingClientRect();
+  const momentCover=guide.querySelector('.mo-lc__stage');
+  const guideDiagnostics={headingTop:Math.round(doc.getElementById('manual-h').getBoundingClientRect().top-guideBox.top),coverTop:momentCover&&Math.round(momentCover.getBoundingClientRect().top-guideBox.top),height:Math.round(guideBox.height)};
+  const firstCard=doc.querySelector('#gsis .card');
+  const hoverDiagnostics={fine:frame.contentWindow.matchMedia('(hover: hover) and (pointer: fine)').matches,reduced:frame.contentWindow.matchMedia('(prefers-reduced-motion: reduce)').matches,lift:firstCard&&frame.contentWindow.getComputedStyle(firstCard).getPropertyValue('--m-lift'),motion:doc.documentElement.dataset.motion,cardClass:firstCard&&firstCard.className};
+  try{
+    const tabs=[...doc.querySelectorAll('.file-tabs [role="tab"]')];
+    assert(tabs.length===3,'The three patch/reference tabs must exist');
+    for(const [i,name] of ['patched_boot_bpf_fix.img','lk-patched.img','stock_boot.img'].entries()){
+      tabs[i].click();
+      const panel=doc.getElementById(tabs[i].getAttribute('aria-controls'));
+      assert(tabs[i].getAttribute('aria-selected')==='true','Selected tab state must change');
+      assert(panel&&!panel.hidden&&panel.innerText.includes(name),'Selected image details must be visible');
+      assert(tabs.filter(tab=>tab.getAttribute('aria-selected')==='true').length===1,'Only one tab may be selected');
+    }
+    results.push({test:'Patch and reference tabs select their actual image details',pass:true});
+  }catch(error){results.push({test:'Patch and reference tabs select their actual image details',pass:false,error:error.message});}
+  try{
+    const luminance=color=>{
+      const rgb=color.match(/[\d.]+/g).slice(0,3).map(Number).map(value=>{value/=255;return value<=0.04045?value/12.92:((value+0.055)/1.055)**2.4});
+      return .2126*rgb[0]+.7152*rgb[1]+.0722*rgb[2];
+    };
+    for(const selector of ['.manual-sheet','.report-sheet','.file-detail:not([hidden]) .link']){
+      const element=doc.querySelector(selector);
+      let background='rgba(0, 0, 0, 0)';
+      for(let ancestor=element;ancestor;ancestor=ancestor.parentElement){const color=frame.contentWindow.getComputedStyle(ancestor).backgroundColor;if(color!=='rgba(0, 0, 0, 0)'&&color!=='transparent'){background=color;break;}}
+      const a=luminance(frame.contentWindow.getComputedStyle(element).color),b=luminance(background);
+      const ratio=(Math.max(a,b)+.05)/(Math.min(a,b)+.05);
+      assert(ratio>=4.5,selector+' text contrast '+ratio.toFixed(2)+' must be at least 4.5');
+    }
+    results.push({test:'Paper panels and their links have readable contrast',pass:true});
+  }catch(error){results.push({test:'Paper panels and their links have readable contrast',pass:false,error:error.message});}
+  const measurements=[];
+  for(const [width,height] of [[1440,900],[1024,768],[820,1180],[768,1024],[390,844],[320,640]]){
+    frame.style.width=width+'px';frame.style.height=height+'px';await wait(350);
+    frame.contentWindow.scrollTo(0,0);
+    const sections=[...doc.querySelectorAll('main > section, footer.closing')];
+    const view={width,height,sections:[]};
+    for(const section of sections){
+      const box=section.getBoundingClientRect();
+      const text=[...section.querySelectorAll('h1,h2,h3,p,a,button,dt,dd,span')].filter(element=>element.checkVisibility({checkVisibilityCSS:true})&&!element.closest('.hero__art'));
+      const bottom=Math.max(box.top,...text.map(element=>element.getBoundingClientRect().bottom));
+      const padding=parseFloat(frame.contentWindow.getComputedStyle(section).paddingBottom);
+      view.sections.push({id:section.id||'hero',height:Math.round(box.height),contentBottom:Math.round(bottom-box.top),available:Math.round(box.height-padding)});
+    }
+    measurements.push(view);
+    try{for(const section of view.sections){assert(section.contentBottom<=section.available+2,section.id+' content exceeds its bottom padding at '+width+'px');if(width!==320){const screens=Math.round(section.height/height);assert((screens===1||screens===2)&&Math.abs(section.height-screens*height)<=3,section.id+' must be one or two screens at '+width+'px');}}assert(doc.documentElement.scrollWidth<=width,'Page must not overflow at '+width+'px');results.push({test:'Content fits its section at '+width+'px',pass:true});}
+    catch(error){results.push({test:'Content fits its section at '+width+'px',pass:false,error:error.message});}
+  }
+  frame.style.width='390px';frame.style.height='844px';await wait(350);
+  try{
+    const toggle=doc.querySelector('.nav__toggle');
+    const edge=doc.querySelector('.nav__bar').getBoundingClientRect().right;
+    assert(Math.abs(toggle.getBoundingClientRect().right-edge)<=2,'The mobile menu must sit on the actual right content edge');
+    toggle.click();assert(toggle.getAttribute('aria-expanded')==='true','Menu must open');
+    doc.dispatchEvent(new frame.contentWindow.KeyboardEvent('keydown',{key:'Escape',bubbles:true}));
+    assert(toggle.getAttribute('aria-expanded')==='false'&&doc.activeElement===toggle,'Escape must close the menu and restore focus');
+    toggle.click();doc.querySelector('.nav__link[href="#manual"]').click();
+    assert(toggle.getAttribute('aria-expanded')==='false','Choosing a menu destination must close the sheet');
+    results.push({test:'Mobile menu opens, closes, and restores keyboard focus',pass:true});
+  }catch(error){results.push({test:'Mobile menu opens, closes, and restores keyboard focus',pass:false,error:error.message});}
+  try{
+    const last=doc.getElementById('tab-stock');last.click();last.focus();
+    last.dispatchEvent(new frame.contentWindow.KeyboardEvent('keydown',{key:'ArrowRight',bubbles:true}));
+    assert(doc.getElementById('tab-boot').getAttribute('aria-selected')==='true'&&doc.activeElement===doc.getElementById('tab-boot'),'Arrow keys must wrap selection and move focus');
+    results.push({test:'File tabs support arrow-key navigation',pass:true});
+  }catch(error){results.push({test:'File tabs support arrow-key navigation',pass:false,error:error.message});}
+  try{
+    for(const link of doc.querySelectorAll('a[href^="#"]'))assert(doc.getElementById(link.getAttribute('href').slice(1)),'Each internal link must have a destination');
+    results.push({test:'Internal links resolve to actual destinations',pass:true});
+  }catch(error){results.push({test:'Internal links resolve to actual destinations',pass:false,error:error.message});}
+  try{
+    frame.setAttribute('sandbox','allow-same-origin');
+    const loaded=new Promise(resolve=>frame.addEventListener('load',resolve,{once:true}));
+    frame.src='../index.html?no-script-test';await loaded;
+    const plain=frame.contentDocument;
+    assert(plain.querySelector('main h1').innerText.includes('GSI fixes'),'The category remains readable without JavaScript');
+    const links=[...plain.querySelectorAll('a[download]')].filter(link=>link.checkVisibility({checkVisibilityCSS:true}));
+    assert(new Set(links.map(link=>link.getAttribute('href'))).size===3,'All three image downloads must remain accessible without JavaScript');
+    results.push({test:'Content and downloads remain available without JavaScript',pass:true});
+  }catch(error){results.push({test:'Content and downloads remain available without JavaScript',pass:false,error:error.message});}
+  const passed=results.filter(result=>result.pass).length;
+  document.getElementById('results').textContent=(passed===results.length?'PASS':'FAIL')+' '+passed+'/'+results.length+'\n'+JSON.stringify(results,null,2)+'\nGUIDE DIAGNOSTICS\n'+JSON.stringify(guideDiagnostics)+'\nHOVER DIAGNOSTICS\n'+JSON.stringify(hoverDiagnostics)+'\nMEASUREMENTS\n'+measurements.map(view=>view.width+'x'+view.height+' '+view.sections.map(section=>section.id+':'+section.height+'/'+section.contentBottom+'/'+section.available).join(' ')).join('\n');
+  document.title=(passed===results.length?'PASS':'FAIL')+' Forge X663 browser tests';
+  window.scrollTo(0,0);
+  document.documentElement.dataset.ready='1';
+},{once:true});
+</script></body></html>

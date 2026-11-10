@@ -1,0 +1,6 @@
+2026/11/10-02:30:43.303 146d Creating DB /home/ryoku/Work/Github/Infinix-X663-GSI-Fixes/.taste-skill/chrome-bench/Default/WebStorage/1/IndexedDB/indexeddb.leveldb since it was missing.
+2026/11/10-02:30:43.341 146d Reusing MANIFEST /home/ryoku/Work/Github/Infinix-X663-GSI-Fixes/.taste-skill/chrome-bench/Default/WebStorage/1/IndexedDB/indexeddb.leveldb/MANIFEST-000001
+2026/11/10-02:30:44.500 1470 Level-0 table #5: started
+2026/11/10-02:30:44.513 1470 Level-0 table #5: 1721 bytes OK
+2026/11/10-02:30:44.535 1470 Delete type=0 #3
+2026/11/10-02:30:44.538 1470 Manual compaction at level-0 from '\x00\x01\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00\x02\x00\x00\x00' @ 0 : 0; will stop at (end)

@@ -1,0 +1,32 @@
+# Forge X663
+
+> Maintainer-created GSI networking patches and optional boot-warning removal for Infinix Note 11 (X663), with own-image patching guidance.
+
+The repository includes a boot-image networking patch, an optional Little Kernel warning patch, and the saved original boot image. MedoX71T created the supplied patches. The existing maintainer-listed stock-firmware identifier is `X663-H6915ABCDEFGHIO-S-GL-230113V402`, preserved literally. Match the original stock build before using pre-patched images. Hashes identify files; they do not establish signatures or hardware compatibility.
+
+## Workshop
+
+- [Homepage](index.html): device scope, image inspector, upstream resources, selected GSIs, and risk guidance.
+- [Main documentation](README.md): repository overview and frontend development.
+- [Forge Ready](forge-ready/README.md): pre-patched images and file hashes.
+- [Forge Manual](forge-manual/README.md): preparation and upstream tools for own-image work.
+- [Problem Wall](problem-wall/README.md): risks and bug-report guidance.
+- [Gathering Table](gathering-table/README.md): community destinations and reproducible reports.
+- [License](LICENSE): MIT repository license; upstream tools retain their own licenses.
+
+## Selected GSIs
+
+These are the maintainer’s three chosen upstream references, not independent device certification.
+
+- [Derpfest Treble](https://github.com/Doze-off/Derpfest_treble)
+- [Project Infinity-X](https://github.com/Doze-off/ProjectInfinity-X_gsi)
+- [AxionOS](https://github.com/Doze-off/axion_aosp)
+
+## Upstream resources
+
+- [MediaTek BPF patcher](https://github.com/R0rt1z2/mtk-bpf-patcher): kernel binary patching for a MediaTek arraymap regression; output is not assumed to be a repacked flashable boot image.
+- [lkpatcher](https://github.com/R0rt1z2/lkpatcher): Little Kernel patch categories and recovery requirements.
+- [Platform Tools](https://developer.android.com/tools/releases/platform-tools): official ADB and fastboot tools.
+- [Issues](https://github.com/MedoX71T/Infinix-X663-GSI-Fixes/issues): public reports.
+
+Bootloader unlocking erases data. Preserve matching stock images and a recovery path. Carrier features, hotspot, and SELinux behavior depend on the GSI and firmware. No universal support, invented subsystem counts, bundled build system, or guaranteed outcome is claimed.

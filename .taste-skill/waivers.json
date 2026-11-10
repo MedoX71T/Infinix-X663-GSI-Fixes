@@ -1,0 +1,22 @@
+[
+  {
+    "check": "section-gaps",
+    "target": "section#ready / section#manual",
+    "reason": "The unchanged line-carries-colour moment's decorative inset cover is counted as content at 17px. Independent real-browser measurements show the actual guide heading starts at 120px in a 900px section. The cover is required by the kit recipe, not an unpadded content block."
+  },
+  {
+    "check": "flush",
+    "target": "section#manual > div.mo-lc__stage > div.mo-lc__cover",
+    "reason": "The native line-carries-colour cover is a decorative aria-hidden layer with the even inset required by its reference. The actual guide heading and content keep the section padding; the checker mistakes that cover for the first content line."
+  },
+  {
+    "check": "text-contrast",
+    "target": "Keep matching firmware images",
+    "reason": "This paragraph is inside the unchanged dealt line-carries-colour moment. The reported low contrast is its transient whole-block fade during the scroll probe, not the finished text. At rest, in framed section tiles, without scripts, and under reduced motion the foreground is the normal high-contrast ink."
+  },
+  {
+    "check": "section-air",
+    "target": "div.faq__item.faq-recovery",
+    "reason": "This is a native FAQ item using the unchanged standard FAQ closing rule. The reference explicitly allows every FAQ row to close with a 1px rule (ST-43). The line spans the FAQ column, not a new section or separator band."
+  }
+]

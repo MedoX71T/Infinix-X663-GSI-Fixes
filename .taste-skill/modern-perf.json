@@ -1,0 +1,316 @@
+{
+ "page": "index.html",
+ "partial": false,
+ "results": [
+  {
+   "w": 1440,
+   "rows": [
+    {
+     "name": "host CPU load (before/after)",
+     "value": "62/43 %",
+     "verdict": "WARN",
+     "note": "busy host: timing verdicts capped at WARN, rerun when idle"
+    },
+    {
+     "name": "total transfer",
+     "value": "225.1 KiB",
+     "verdict": "PASS",
+     "note": "html 5.9K  css 76.4K  js 67.7K  font 63.8K  img 4.9K  other 6.4K"
+    },
+    {
+     "name": "requests",
+     "value": 28,
+     "verdict": "PASS",
+     "note": "27 by load"
+    },
+    {
+     "name": "images bytes",
+     "value": "4.9 KiB",
+     "verdict": "PASS",
+     "note": "3 files"
+    },
+    {
+     "name": "largest image",
+     "value": "2.5 KiB",
+     "verdict": "PASS",
+     "note": "icons/android.svg"
+    },
+    {
+     "name": "JS parsed",
+     "value": "182.5 KiB",
+     "verdict": "PASS",
+     "note": "9 files, 67.7K gz"
+    },
+    {
+     "name": "CSS",
+     "value": "76.4 KiB",
+     "verdict": "PASS",
+     "note": "10 files"
+    },
+    {
+     "name": "font families",
+     "value": 2,
+     "verdict": "PASS",
+     "note": "DM Mono, Hanken Grotesk"
+    },
+    {
+     "name": "font files",
+     "value": 3,
+     "verdict": "PASS",
+     "note": "63.8K"
+    },
+    {
+     "name": "font bytes",
+     "value": "63.8 KiB",
+     "verdict": "PASS",
+     "note": ""
+    },
+    {
+     "name": "images without width+height",
+     "value": 0,
+     "verdict": "PASS",
+     "note": ""
+    },
+    {
+     "name": "below-fold images not lazy",
+     "value": 6,
+     "verdict": "FAIL",
+     "note": "forge-mark.svg, github.svg, github.svg"
+    },
+    {
+     "name": "oversized images (natural > 2.2x shown)",
+     "value": 0,
+     "verdict": "PASS",
+     "note": ""
+    },
+    {
+     "name": "WebGL live at load",
+     "value": 1,
+     "verdict": "PASS",
+     "note": ""
+    },
+    {
+     "name": "WebGL live at bottom",
+     "value": 1,
+     "verdict": "PASS",
+     "note": ""
+    },
+    {
+     "name": "WebGL peak live",
+     "value": 1,
+     "verdict": "PASS",
+     "note": "2 contexts made in all"
+    },
+    {
+     "name": "long tasks (WebGL off)",
+     "value": 1,
+     "verdict": "PASS",
+     "note": "runs 3, 0..1, busy host, max 90ms"
+    },
+    {
+     "name": "blocking time (WebGL off)",
+     "value": "6 ms",
+     "verdict": "PASS",
+     "note": "runs 3, 0..40, busy host ms; at load 6ms"
+    },
+    {
+     "name": "FCP (CPU, relative)",
+     "value": "392 ms",
+     "verdict": "PASS",
+     "note": "runs 3, 268..564, busy host"
+    },
+    {
+     "name": "LCP (CPU, relative)",
+     "value": "772 ms",
+     "verdict": "PASS",
+     "note": "runs 3, 660..776, busy host, h1"
+    },
+    {
+     "name": "layout shift",
+     "value": "0.001",
+     "verdict": "PASS",
+     "note": "runs 3, 0.001..0.001; at load 0.000"
+    },
+    {
+     "name": "  info: one load with WebGL on the CPU",
+     "value": "5005 ms",
+     "verdict": "INFO",
+     "note": "21 long tasks; SwiftShader runs shaders on the CPU, not a verdict, and shader compile on a real GPU is not measured"
+    },
+    {
+     "name": "modules loaded, never mounted",
+     "value": 0,
+     "verdict": "PASS",
+     "note": ""
+    },
+    {
+     "name": "broken requests",
+     "value": 0,
+     "verdict": "PASS",
+     "note": ""
+    },
+    {
+     "name": "page height",
+     "value": "6 screens",
+     "verdict": "PASS",
+     "note": "DOM 431 nodes"
+    }
+   ]
+  },
+  {
+   "w": 390,
+   "rows": [
+    {
+     "name": "host CPU load (before/after)",
+     "value": "62/43 %",
+     "verdict": "WARN",
+     "note": "busy host: timing verdicts capped at WARN, rerun when idle"
+    },
+    {
+     "name": "total transfer",
+     "value": "223.5 KiB",
+     "verdict": "PASS",
+     "note": "html 5.9K  css 76K  js 67.7K  font 63.1K  img 4.9K  other 5.9K"
+    },
+    {
+     "name": "requests",
+     "value": 27,
+     "verdict": "PASS",
+     "note": "26 by load"
+    },
+    {
+     "name": "images bytes",
+     "value": "4.9 KiB",
+     "verdict": "PASS",
+     "note": "3 files"
+    },
+    {
+     "name": "largest image",
+     "value": "2.5 KiB",
+     "verdict": "PASS",
+     "note": "icons/android.svg"
+    },
+    {
+     "name": "JS parsed",
+     "value": "182.5 KiB",
+     "verdict": "PASS",
+     "note": "9 files, 67.7K gz"
+    },
+    {
+     "name": "CSS",
+     "value": "76 KiB",
+     "verdict": "PASS",
+     "note": "10 files"
+    },
+    {
+     "name": "font families",
+     "value": 2,
+     "verdict": "PASS",
+     "note": "DM Mono, Hanken Grotesk"
+    },
+    {
+     "name": "font files",
+     "value": 3,
+     "verdict": "PASS",
+     "note": "63.1K"
+    },
+    {
+     "name": "font bytes",
+     "value": "63.1 KiB",
+     "verdict": "PASS",
+     "note": ""
+    },
+    {
+     "name": "images without width+height",
+     "value": 0,
+     "verdict": "PASS",
+     "note": ""
+    },
+    {
+     "name": "below-fold images not lazy",
+     "value": 6,
+     "verdict": "FAIL",
+     "note": "forge-mark.svg, github.svg, github.svg"
+    },
+    {
+     "name": "oversized images (natural > 2.2x shown)",
+     "value": 0,
+     "verdict": "PASS",
+     "note": ""
+    },
+    {
+     "name": "WebGL live at load",
+     "value": 0,
+     "verdict": "PASS",
+     "note": ""
+    },
+    {
+     "name": "WebGL live at bottom",
+     "value": 0,
+     "verdict": "PASS",
+     "note": ""
+    },
+    {
+     "name": "WebGL peak live",
+     "value": 1,
+     "verdict": "PASS",
+     "note": "2 contexts made in all"
+    },
+    {
+     "name": "long tasks (WebGL off)",
+     "value": 0,
+     "verdict": "PASS",
+     "note": "runs 3, 0..2, busy host, max 71ms"
+    },
+    {
+     "name": "blocking time (WebGL off)",
+     "value": "0 ms",
+     "verdict": "PASS",
+     "note": "runs 3, 0..25, busy host ms; at load 0ms"
+    },
+    {
+     "name": "FCP (CPU, relative)",
+     "value": "408 ms",
+     "verdict": "PASS",
+     "note": "runs 3, 348..496, busy host"
+    },
+    {
+     "name": "LCP (CPU, relative)",
+     "value": "740 ms",
+     "verdict": "PASS",
+     "note": "runs 3, 716..1068, busy host, div.hero__media"
+    },
+    {
+     "name": "layout shift",
+     "value": "0.000",
+     "verdict": "PASS",
+     "note": "runs 3, 0.000..0.000; at load 0.000"
+    },
+    {
+     "name": "  info: one load with WebGL on the CPU",
+     "value": "480 ms",
+     "verdict": "INFO",
+     "note": "2 long tasks; SwiftShader runs shaders on the CPU, not a verdict, and shader compile on a real GPU is not measured"
+    },
+    {
+     "name": "modules loaded, never mounted",
+     "value": 0,
+     "verdict": "PASS",
+     "note": ""
+    },
+    {
+     "name": "broken requests",
+     "value": 0,
+     "verdict": "PASS",
+     "note": ""
+    },
+    {
+     "name": "page height",
+     "value": "6 screens",
+     "verdict": "PASS",
+     "note": "DOM 424 nodes"
+    }
+   ]
+  }
+ ]
+}

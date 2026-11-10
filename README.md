@@ -1,112 +1,88 @@
-# <div align="center" >OmniPatch X663 <br> <i> Fixing BPF Network & Bootloader Warnings </i> </div>
+# Forge X663
 
-This repository provides a critical solution for the **Infinix Note 11 (X663)** device when running GSI (Generic System Image) builds, specifically addressing the issue of **WiFi - Mobile Data not working** on **Android 14 and higher**, as well as removing the unlocked bootloader warnings.
+> Maintainer-created GSI networking patches and optional boot-warning removal for Infinix Note 11 (X663).
 
-<div align="center" display: flex;>
-<img width="40%" height="40%" alt="Android 15" src="src/android 15.png"/>
-<img width="40%" height="40%" alt="Android 15 Settings" src="src/android 15-2.png"/>
-<img width="40%" height="40%" alt="Android 16" src="src/android 16.png"/>
-<img width="40%" height="40%" alt="Android 16 Settings" src="src/android 16-2.png"/>
-</div>
-<br>
+This is a static landing page plus firmware-image files and documentation. It is not a build system or a compatibility-certification service. Files and recommendations come from the maintainer’s work; individual firmware/GSI combinations still need their own checks.
 
-This release provides the necessary patched boot image to enable Mobile Data (Internet) functionality on Generic System Images (GSIs) running Android 14 or higher on the Infinix Note 11 (X663), and a patched LK image to remove boot warnings.
+## Workshop
 
----
+- [Homepage](index.html)
+- [Forge Ready — pre-patched images](forge-ready/README.md)
+- [Forge Manual — own-image guidance](forge-manual/README.md)
+- [Problem Wall — risks and bug reports](problem-wall/README.md)
+- [Gathering Table — community guidance](gathering-table/README.md)
+- [Repository review](REVIEW.md)
 
-## **Included Files & Details**
+## Files and stock-firmware target
 
-### 1. `stock_boot.img` (Reference)
-* **Description:** The original, unpatched boot image extracted directly from the official Stock ROM.
-* **Stock ROM Source:** ```X663-H6915ABCEFGHIO-S-GL-230113V402```(Android 12 Base).
-* **Purpose:** Included for reference or if you need to restore your device's original boot state.
+The existing maintainer-listed stock-firmware identifier is:
 
-⚠️ **WARNING:** If you are unsure of what you are doing, flashing the wrong boot image can soft-brick your device's software! Proceed with caution and if anything bricks it's your responsibility.
+`X663-H6915ABCDEFGHIO-S-GL-230113V402`
 
-### 2. `patched_boot_bpf_fix.img` (Ready-to-Use)
-* **Description:** This is the modified boot image with the essential BPF (Berkeley Packet Filter) kernel patch applied. This patch is mandatory for network connectivity on many modern MTK GSIs.
-* **Status:** Ready for use.
-* **Tested GSI Versions:** Successfully tested and confirmed working with GSI versions up to Android 16. Mobile data connectivity is functional.
-* **Usage:** Flash this file via Fastboot (refer to the instructions below).
+It is preserved literally. Do not treat an installed GSI’s version number as the original stock-firmware build. A file hash identifies an image; it does not prove compatibility or a trusted signature.
 
-**Key Fixes:**
-* Enables WiFi - Mobile Data on Android 14+ GSIs for the X663.
-* Utilizes the `mtk-bpf-patcher` for stability.
+| File | Role | Bytes |
+| --- | --- | ---: |
+| [patched_boot_bpf_fix.img](forge-ready/patched_boot_bpf_fix.img) | Maintainer’s boot-image networking patch | 33,554,432 |
+| [lk-patched.img](forge-ready/lk-patched.img) | Optional Little Kernel warning-removal patch | 1,167,792 |
+| [stock_boot.img](forge-ready/stock_boot.img) | Saved original boot reference | 33,554,432 |
 
-### 3. `lk-patched.img` (Boot Warning Fix)
-* **Description:** Patched Little Kernel (LK) image.
-* **Purpose:** Removes all "Orange State" and unlocked bootloader warnings when booting the device.
+A stock boot image is not a complete recovery kit. Stock LK, vbmeta, and other device-specific recovery files are not bundled.
 
-<div align="center">
-<img width="40%" height="40%" alt="LK Patched" src="src/lk.jpg"/>
-</div>
+## Selected GSIs
 
----
+These are MedoX71T’s selected upstream references, all maintained by Doze-off. Their repositories describe bypass patches and overlay resources; this is not independent confirmation that every build works on X663.
 
-## **The Problem & Solution**
+- [Derpfest Treble](https://github.com/Doze-off/Derpfest_treble)
+- [Project Infinity-X](https://github.com/Doze-off/ProjectInfinity-X_gsi)
+- [AxionOS](https://github.com/Doze-off/axion_aosp)
 
-When flashing any modern GSI (e.g., AOSP A15 or DerpFest A16) on the Infinix Note 11 (X663), the device boots correctly, but **WiFi - Mobile Data fails to work entirely BUT If we started HOTSPOT Sharing ... the other device can connect to our internet normally**. This is a known issue on many MediaTek devices and requires a specific patch to the kernel within the `boot.img` to enable the necessary BPF layer for network function.
+Read each project’s current release and device notes. No additional generic-GSI recommendations are included.
 
-### **Quick Fix (Try this first)**
-Before flashing, try this ADB command. If it works, you don't need the patched boot image:
-```bash
-adb shell settings put global restricted_networking_mode 0
+## Patching resources and risks
+
+BPF means Berkeley Packet Filter. The [upstream MediaTek BPF patcher](https://github.com/R0rt1z2/mtk-bpf-patcher) describes a binary patch for a MediaTek arraymap regression. It works on the kernel; its output must not be assumed to be a repacked flashable boot image.
+
+LK means Little Kernel, the bootloader code. [lkpatcher](https://github.com/R0rt1z2/lkpatcher) has several patch categories; warning removal is separate from the networking task. Follow its current documentation and recovery requirements.
+
+Before modifying partitions:
+
+1. Back up your data and keep matching, untouched stock images.
+2. Understand your device’s partition and recovery workflow.
+3. Read the relevant upstream tool’s supported inputs, outputs, and patch categories.
+4. Record the exact firmware, GSI build, changed images, symptoms, and results.
+
+Bootloader unlocking erases data. Firmware mismatches can prevent booting. VoLTE, VoWiFi, hotspot, and SELinux behavior depend on the firmware and GSI. No new flashing recipe is presented here as device-verified.
+
+## Reports and contact
+
+Use [GitHub Issues](https://github.com/MedoX71T/Infinix-X663-GSI-Fixes/issues) for public reports. Include the full stock build, exact GSI release, changes, and relevant logs with private data removed.
+
+- [Maintainer Telegram](https://t.me/MedoX71T)
+- [Upstream Doze-off GSI group](https://t.me/dozeoff_treble)
+
+The upstream group is not a dedicated Forge forum. GitHub Discussions is not promoted while disabled.
+
+## Frontend development
+
+No framework or package install is required. Serve the repository over HTTP for ES modules:
+
+```sh
+python3 -m http.server 8080 --bind 127.0.0.1
 ```
 
----
+Open `http://127.0.0.1:8080/`. Do not rely on `file://` for the module-driven menu, tabs, and effects.
 
-## **Flashing Instructions**
-
-⚠️ **WARNING:** Flashing custom images carries inherent risks. I am not responsible for any damage to your device. Ensure your device is the **Infinix Note 11 (X663)** and you have Fastboot/ADB access.
-
-### **Prerequisites**
-1.  ADB/Fastboot binaries and drivers installed on your PC.
-2.  Your device's **Bootloader must be unlocked**.
-3.  A GSI (Android 14 or higher) must already be installed.
-
-### **Steps**
-1.  Download the **`patched_boot_bpf_fix.img`** and **`lk-patched.img`** files to an easily accessible folder on your computer.
-2.  Open Command Prompt or PowerShell in your ADB/Fastboot directory.
-3.  Verify your device is connected:
-    ```bash
-    adb devices
-    ```
-4.  Restart to bootloader:
-    ```bash
-    adb reboot bootloader  
-    ```
-
-**Flashing the LK Image (Removes Boot Warnings):**
-*Note: Make sure you are in normal bootloader mode, not fastbootd.*
-```bash
-fastboot flash lk lk-patched.img
+```sh
+node --test tests/site.test.mjs
 ```
 
-**Flashing the Boot Image (Fixes WiFi/Mobile Data):**
+`tests/browser.html` exercises actual file-tab behavior against the local homepage. The design system stays unmodified; page-specific branding is in `assets/forge.css`.
 
-5. Enter fastbootd Mode (Recommended for boot image):
-```bash
-fastboot reboot fastboot 
-```
-6. Flash the patched boot image:
-```bash
-fastboot flash boot patched_boot_bpf_fix.img
-```
-7.  Once all flashing is complete, reboot your device:
-```bash
-fastboot reboot
-```
+Publishing and a canonical site URL require separate setup. Local checks do not establish public deployment or search indexing. A project-path robots.txt does not control GitHub Pages’ origin-wide crawler policy.
 
-**Result:** WiFi - Mobile Data connectivity should now be correctly enabled on your installed GSI, and the bootloader unlocked warnings will be gone!
+## Credits and license
 
----
+MedoX71T created the supplied patches. R0rt1z2 maintains the upstream patchers. Doze-off maintains the selected GSI projects. Original screenshots and firmware files remain preserved.
 
-## **Credits and Acknowledgements**
-
-A special thanks to the communities and developers who make these fixes possible:
-
-* **[`MedoX71T`](https://t.me/MedoX71T) - (ME)**: For the testing, patching, and providing these files.
-* **R0rt1z2**: For developing the essential [`mtk-bpf-patcher`](https://github.com/R0rt1z2/mtk-bpf-patcher) tool.
-* The wider **XDA and Project Treble communities** for continuous support and research.
-
-Please report any issues or submit improvements by opening a new "Issue" in this repository.
+Repository license: [MIT](LICENSE). The linked upstream tools retain their own licenses. Software is provided as is, without warranty.

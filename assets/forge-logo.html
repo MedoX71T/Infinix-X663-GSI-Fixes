@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forge X663 Logo</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Crimson+Pro:wght@400;600&display=swap');
+        
+        body {
+            font-family: 'JetBrains Mono', monospace;
+            background: #1a1a1a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 40px;
+        }
+        
+        .logo-container {
+            width: 800px;
+            height: 200px;
+            background: linear-gradient(135deg, #E8E4D9 0%, #D8D4C9 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            padding: 0 60px;
+            gap: 40px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* Workshop texture */
+        .texture {
+            position: absolute;
+            inset: 0;
+            background: 
+                repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(99, 81, 71, 0.03) 2px, rgba(99, 81, 71, 0.03) 4px);
+            opacity: 0.5;
+        }
+        
+        .logo-mark {
+            width: 100px;
+            height: 100px;
+            flex-shrink: 0;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Anvil + chip die icon */
+        .anvil-chip {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+        
+        .anvil {
+            position: absolute;
+            width: 68px;
+            height: 52px;
+            background: linear-gradient(135deg, #635147 0%, #4a3d35 100%);
+            clip-path: polygon(20% 0%, 80% 0%, 100% 30%, 100% 100%, 0% 100%, 0% 30%);
+            top: 28px;
+            left: 16px;
+            box-shadow: 0 4px 12px rgba(99, 81, 71, 0.3);
+        }
+        
+        .chip-outline {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            border: 3px solid #6B8E7F;
+            top: 8px;
+            right: 8px;
+            background: rgba(107, 142, 127, 0.15);
+        }
+        
+        .chip-pins {
+            position: absolute;
+            inset: 0;
+        }
+        
+        .pin {
+            position: absolute;
+            width: 2px;
+            height: 10px;
+            background: #6B8E7F;
+        }
+        
+        .pin-t1 { top: -10px; left: 12px; }
+        .pin-t2 { top: -10px; left: 28px; }
+        .pin-t3 { top: -10px; right: 12px; }
+        .pin-r1 { right: -10px; top: 12px; width: 10px; height: 2px; }
+        .pin-r2 { right: -10px; top: 28px; width: 10px; height: 2px; }
+        .pin-b1 { bottom: -10px; left: 12px; }
+        .pin-b2 { bottom: -10px; right: 12px; }
+        .pin-l1 { left: -10px; top: 12px; width: 10px; height: 2px; }
+        .pin-l2 { left: -10px; bottom: 12px; width: 10px; height: 2px; }
+        
+        .text-content {
+            flex: 1;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .brand-name {
+            font-size: 52px;
+            font-weight: 700;
+            color: #635147;
+            line-height: 1;
+            letter-spacing: -1px;
+            margin-bottom: 8px;
+        }
+        
+        .subtitle {
+            font-family: 'Crimson Pro', serif;
+            font-size: 18px;
+            color: #635147;
+            opacity: 0.75;
+            margin-bottom: 16px;
+        }
+        
+        .tagline {
+            font-size: 14px;
+            color: #6B8E7F;
+            font-weight: 600;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div class="logo-container">
+        <div class="texture"></div>
+        
+        <div class="logo-mark">
+            <div class="anvil-chip">
+                <div class="anvil"></div>
+                <div class="chip-outline">
+                    <div class="chip-pins">
+                        <div class="pin pin-t1"></div>
+                        <div class="pin pin-t2"></div>
+                        <div class="pin pin-t3"></div>
+                        <div class="pin pin-r1"></div>
+                        <div class="pin pin-r2"></div>
+                        <div class="pin pin-b1"></div>
+                        <div class="pin pin-b2"></div>
+                        <div class="pin pin-l1"></div>
+                        <div class="pin pin-l2"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="text-content">
+            <div class="brand-name">FORGE X663</div>
+            <div class="subtitle">Engineering Atelier for Custom Android</div>
+            <div class="tagline">"Where problems become craft"</div>
+        </div>
+    </div>
+</body>
+</html>
